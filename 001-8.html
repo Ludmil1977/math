@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <title>Дробно неравенство - Стъпково решение</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4/dist/theme/white.css">
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4/dist/reveal.js"></script>
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]},
+      svg: {fontCache: 'global'}
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
+  <style>
+    section {
+      font-size: 0.8em;
+      padding-top: 10px;
+      padding-bottom: 80px;
+      vertical-align: top;
+    }
+    .math-line {
+      margin: 10px 0;
+    }
+    .math-line span {
+      margin-right: 10px;
+    }
+    svg {
+      margin-top: 1em;
+    }
+    .reveal .slides {
+      overflow-y: auto !important;
+    }
+    svg text {
+      font-size: 20px;
+    }
+    svg .sign {
+      font-size: 50px;
+    }
+    h3 {
+      margin-top: 0 !important;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- Слайд 1 -->
+    <section>
+      <h3>1. Да се реши неравенството</h3>
+      <div class="math-line">
+        <span class="fragment">\( \frac{x^2 - 9}{x^2 - 4x + 3} \)</span>
+        <span class="fragment">\( > \)</span>
+        <span class="fragment">\( 0 \)</span>
+      </div>
+      <div class="fragment">Обяснение: Да се намерят стойностите на \(x\), за които целият израз е положителен.</div>
+    </section>
+
+    <!-- Слайд 2 -->
+    <section>
+      <h3>2. Разлагане на числителя</h3>
+      <div class="math-line">
+        <span class="fragment">\( x^2 - 9 \)</span>
+        <span class="fragment">\( = \)</span>
+        <span class="fragment">\( x^2 - 3^2 \)</span>
+      </div>
+      <div class="fragment">Формула за разлика на квадрати: \( a^2 - b^2 = (a - b)(a + b) \)</div>
+      <div class="math-line">
+        <span class="fragment">\( x^2 - 3^2 \)</span>
+        <span class="fragment">\( = \)</span>
+        <span class="fragment">\( (x - 3)(x + 3) \)</span>
+      </div>
+    </section>
+
+    <!-- Слайд 3 -->
+    <section>
+      <h3>3. Разлагане на знаменателя</h3>
+      <div class="math-line">
+        <span class="fragment">\( x^2 - 4x + 3 \)</span>
+        <span class="fragment">\( = \)</span>
+      </div>
+      <div class="math-line">
+        <span class="fragment">\( x^2 - 3x - x + 3 \)</span>
+        <span class="fragment">\( = \)</span>
+      </div>
+      <div class="math-line">
+        <span class="fragment">\( x(x - 3) - 1(x - 3) \)</span>
+        <span class="fragment">\( = \)</span>
+      </div>
+      <div class="math-line">
+        <span class="fragment">\( (x - 1)(x - 3) \)</span>
+      </div>
+    </section>
+
+    <!-- Слайд 4 -->
+    <section>
+      <h3>4. Допустими стойности</h3>
+      <div class="fragment">Знаменателят трябва да е различен от нула:</div>
+      <div class="math-line">
+        <span class="fragment">\( x - 1 \ne 0 \)</span>
+        <span class="fragment">и</span>
+        <span class="fragment">\( x - 3 \ne 0 \)</span>
+      </div>
+      <div class="fragment">Допустими стойности (ДМ): \( x \ne 1 \) и \( x \ne 3 \)</div>
+    </section>
+
+    <!-- Слайд 5 -->
+    <section>
+      <h3>5. Съкратен израз</h3>
+      <div class="math-line">
+        <span class="fragment">\( \frac{(x - 3)(x + 3)}{(x - 3)(x - 1)} > 0 \)</span>
+      </div>
+      <div class="fragment">Съкращаваме дробта на \( x - 3 \)</div>
+      <div class="math-line">
+        <span class="fragment">\( \frac{x + 3}{x - 1} > 0 \)</span>
+      </div>
+    </section>
+
+    <!-- Слайд 6 -->
+<!-- Слайд 6 -->
+<section>
+  <h3>6. Метод на интервалите</h3>
+  <div class="fragment">Критични точки: \( x = -3, 1 \) и \( 3 \) (от ДМ)</div>
+  <div class="fragment">Знаците на всички значими интервали се редуват, защото множителите са линейни.</div>
+  <svg width="100%" height="120">
+    <!-- Основна числова ос -->
+    <line x1="50" y1="60" x2="750" y2="60" stroke="black" stroke-width="2" />
+    
+    <!-- Кръгли точки -->
+    <circle cx="150" cy="60" r="6" fill="white" stroke="black" />
+    <circle cx="350" cy="60" r="6" fill="white" stroke="black" />
+    <circle cx="550" cy="60" r="6" fill="white" stroke="black" />
+
+    <!-- Вертикални чертички -->
+    <line x1="150" y1="40" x2="150" y2="60" stroke="black" stroke-width="1" />
+    <line x1="350" y1="40" x2="350" y2="60" stroke="black" stroke-width="1" />
+
+    <!-- Числа -->
+    <text x="30" y="90">−∞</text>
+    <text x="140" y="90">−3</text>
+    <text x="340" y="90">1</text>
+    <text x="540" y="45">3</text>
+    <text x="720" y="90">+∞</text>
+
+    <!-- Знаци -->
+    <text x="90" y="55" class="sign">+</text>
+    <text x="240" y="55" class="sign">−</text>
+    <text x="440" y="55" class="sign">+</text>
+    <text x="620" y="55" class="sign">+</text>
+  </svg>
+  <div class="fragment">Тройката 
+    \( x = 3 \) не влияе на знака в интервалите, защото множителят \( (x - 3) \) се съкращава, но влияе на отговора, защото разделя интервала на две части.
+  </div>
+</section>
+
+
+
+    <!-- Слайд 7 -->
+    <section>
+      <h3>7. Отговор</h3>
+      <div class="fragment">Изразът е положителен в интервалите:</div>
+      <div class="math-line">
+        <span class="fragment">\( x \in (-\infty; -3) \cup (1; 3) \cup (3; +\infty) \)</span>
+      </div>
+    </section>
+    <!-- Слайд 8 -->
+    <section>
+      <h3>8. В допълнение на задачата</h3>
+      <div class="fragment">В точките \( x = -3 \) и \( x = 1 \) изразът се нулира.</div>
+      <div class="fragment">В точка \( x = 3 \) изразът не е дефиниран.</div><br>
+      <div class="fragment">Знания за тази и подобни задачи:</div>
+      <ul>
+        <li class="fragment"><a href="002.html" target="_blank">Методи за разлагане на двучлени</a></li>
+        <li class="fragment"><a href="003.html" target="_blank">Методи за разлагане на квадратни тричлени на множители</a></li>
+        <li class="fragment"><a href="004.html" target="_blank">Метод на интервалите за решаване на неравенства, разложени на линейни множители</a></li>
+        <li class="fragment"><a href="006.html" target="_blank">Подобни задачи за упражнение</a></li>
+        <li class="fragment"><a href="005.html" target="_blank">По-сложни неравенства с предварителна обработка за решаване по метода на интервалите</a></li>
+      </ul>
+    </section>
+
+
+  </div>
+</div>
+
+<script>
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    slideNumber: true,
+    hash: true,
+    plugins: [],
+    width: 960,
+    height: 700,
+    transition: 'fade'
+  });
+</script>
+
+</body>
+</html>
