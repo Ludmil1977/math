@@ -2,6 +2,9 @@
 
 <html lang="bg">
 <head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta charset="utf-8"/>
 <title>Задача 1 – дробно неравенство</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -342,6 +345,11 @@ function goFirstSlide() {
 function goLastSlide(){
 
 }
+      const links = document.querySelectorAll("link[rel='stylesheet'], script[src]");
+  links.forEach(el => {
+    const attr = el.tagName === "LINK" ? "href" : "src";
+    el[attr] += (el[attr].includes('?') ? '&' : '?') + 'v=' + Date.now();
+  });
 
 </script>
 
