@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html lang="bg">
+<head>
+  
+<meta charset="utf-8"/>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+<title>Задача 1 – дробно неравенство</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!-- Reveal.js -->
+<link href="https://cdn.jsdelivr.net/npm/reveal.js@4/dist/reveal.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/reveal.js@4/dist/theme/white.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4/dist/reveal.js"></script>
+<!-- MathJax -->
+<script>
+    window.MathJax = {
+      tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]},
+      svg: {fontCache: 'global'}
+    };
+  </script>
+<script async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+svg.icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  vertical-align: middle;
+  transition: color 0.2s ease;
+}
+
+/* бутони: topic */
+#top-bar .topic svg.icon {
+  color: #567292;
+}
+#top-bar a.topic:hover svg.icon {
+  color: #7291e7;
+}
+
+/* бутони: section */
+#top-bar .section svg.icon {
+  color: #44751b;
+}
+#top-bar a.section:hover svg.icon {
+  color: #6bc270;
+}
+
+/* бутони: fragment */
+#top-bar .fragment svg.icon {
+  color: #000000;
+}
+#top-bar a.fragment:hover svg.icon {
+  color: #686767;
+}
+
+#top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 24px;
+  z-index: 9999;
+  white-space: nowrap;
+  background-color: rgb(245, 239, 231);
+  padding: 8px;  /* вместо top: 8px */
+}
+
+#top-bar a {
+  text-decoration: none;
+  margin: 0 5px;
+  font-weight: bold;
+  transition: color 0.2s ease;
+}
+
+/* Разстояние между групите */
+#top-bar .spacer {
+  display: inline-block;
+  width: 0px;
+}
+
+
+
+    section {
+      font-size: 0.9em;
+      padding-top: 10px;
+      padding-bottom: 80px;
+      vertical-align: top;
+    }
+    .math-line {
+      margin: 10px 0;
+    }
+    .math-line span {
+      margin-right: 10px;
+    }
+    svg text {
+      font-size: 20px;
+    }
+    svg .sign {
+      font-size: 50px;
+    }
+
+.reveal {
+  overflow: visible !important;
+  font-size: 30px;
+}
+
+.reveal .slides {
+    overflow-y: auto !important;
+    padding-top: 80px !important;
+    width: 100% !important;
+    box-sizing: border-box;
+    border: 2px solid red;
+    /* transform: scale(0.8);
+    transform-origin: top center; */
+
+    }
+    h3 {
+      margin-top: 0 !important;
+    }
+
+.reveal section {
+  padding-top: 60px !important;
+  border: 2px solid green;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 0.95em;
+  line-height: 1.4;
+}
+
+
+
+html, body, .reveal, .reveal .slides {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden !important;
+}
+
+
+  </style>
+</head>
+<body>
+<div id="top-bar">
+  
+    <!-- Навигация по теми: topics (смяна на HTML презентации)-->
+  <a href="up.html" class="topic" title="Връща към съдържанието на по-горно ниво.">
+    <svg class="icon"><use href="#arrow-up-3"/></svg>
+  </a>
+  <a href="previous.html" class="topic" title="Предишна тема/файл.">
+    <svg class="icon" style="transform: rotate(-90deg);"><use href="#triangle"/></svg>
+  </a>
+  <a href="contents.html" class="topic" title="Съдържание.">
+    <svg class="icon"><use href="#circle"/></svg>
+  </a>
+  <a href="next.html" class="topic" title="Следваща тема/файл.">
+    <svg class="icon" style="transform: rotate(90deg);"><use href="#triangle"/></svg>
+  </a>
+
+  <span class="spacer"></span>
+
+  <!-- Навигация по слайдъри: SECTIONS (в рамките на един HTML)-->
+  <a href="#" class="section" onclick="goPrevSlide(); return false;" title="СЕКЦИЯ НАЗАД">
+    <svg class="icon" style="transform: rotate(-90deg);"><use href="#triangle"/></svg>
+  </a>
+  <a href="#" class="section" onclick="goFirstSlide(); return false;" title="НАЧАЛО">
+    <svg class="icon"><use href="#circle"/></svg>
+  </a>
+  <a href="#" class="section" onclick="goNextSlide(); return false;" title="СЕКЦИЯ НАПРЕД">
+    <svg class="icon" style="transform: rotate(90deg);"><use href="#triangle"/></svg>
+  </a>
+
+  <span class="spacer"></span>
+
+  <!-- Навигация по фрагменти: FRAGMENTS  (стъпкова навигация в рамките на една страница) -->
+  <a href="#" class="fragment" onclick="Reveal.prev(); return false;" title="Стъпка назад">
+    <svg class="icon" style="transform: rotate(-90deg);"><use href="#triangle"/></svg>
+  </a>
+  <a href="#" class="fragment" onclick="goLastSlide(); return false;" title="Край">
+    <svg class="icon"><use href="#circle"/></svg>
+  </a>
+  <a href="#" class="fragment" onclick="Reveal.next(); return false;" title="Стъпка напред">
+    <svg class="icon" style="transform: rotate(90deg);"><use href="#triangle"/></svg>
+  </a>
+</div>
+
+
+<div class="reveal">
+<div class="slides"><section>
+<h3>13. Да се реши неравенството</h3>
+<div class="math-line">
+<span class="fragment">\( \frac{x^2 - 4}{x^2 - 1} \)</span>
+<span class="fragment">\( \ge \)</span>
+<span class="fragment">\( 0 \)</span>
+</div>
+<div class="fragment">Да се намерят стойностите на \(x\), за които изразът е положителен или равен на нула.</div>
+</section><section>
+<h3>14. Разлагане на числителя</h3>
+<div class="math-line">
+<span class="fragment">\( x^2 - 4 = x^2 - 2^2 = (x - 2)(x + 2) \)</span>
+</div>
+</section><section>
+<h3>15. Разлагане на знаменателя</h3>
+<div class="math-line">
+<span class="fragment">\( x^2 - 1 = x^2 - 1^2 = (x - 1)(x + 1) \)</span>
+</div>
+</section><section>
+<h3>16. Допустими стойности</h3>
+<div class="fragment">Знаменателят не трябва да е нула: \( x \ne -1 \), \( x \ne 1 \)</div>
+</section><section>
+<h3>17. Критични стойности</h3>
+<div class="fragment">Записваме израза в разложен вид:</div>
+<div class="math-line">
+<span class="fragment">\( \frac{(x - 2)(x + 2)}{(x - 1)(x + 1)} \ge 0 \)</span>
+</div>
+<div class="fragment">Критични точки: \( x = -2, -1, 1, 2 \)</div>
+</section><section>
+<h3>18. Метод на интервалите</h3>
+<div class="fragment">Избираме удобна стойност. Например за \( x = 0 \):</div>
+<div class="math-line fragment">
+    \( \frac{(0 - 2)(0 + 2)}{(0 - 1)(0 + 1)} = \frac{-4}{-1} = 4 \). Тоест, като заместим с x=0, изразът е положителен.
+  </div>
+<div class="fragment">Нулата попада в интервала от \( (-1; 1) \) =&gt; Изразът в този интервал е положителен.</div>
+<div class="fragment">Понеже всички множители са линейни, знаците се редуват.</div>
+<svg height="120" width="100%">
+<!-- Основна ос -->
+<line stroke="black" stroke-width="2" x1="50" x2="750" y1="60" y2="60"></line>
+<!-- Кръгчета -->
+<circle cx="150" cy="60" fill="black" r="6" stroke="black"></circle> <!-- x = -2 -->
+<circle cx="250" cy="60" fill="white" r="6" stroke="black"></circle> <!-- x = -1 -->
+<circle cx="450" cy="60" fill="white" r="6" stroke="black"></circle> <!-- x = 1 -->
+<circle cx="550" cy="60" fill="black" r="6" stroke="black"></circle> <!-- x = 2 -->
+<!-- Чертички -->
+<line stroke="black" x1="150" x2="150" y1="40" y2="60"></line>
+<line stroke="black" x1="250" x2="250" y1="40" y2="60"></line>
+<line stroke="black" x1="450" x2="450" y1="40" y2="60"></line>
+<line stroke="black" x1="550" x2="550" y1="40" y2="60"></line>
+<!-- Точки -->
+<text x="20" y="90">−∞</text>
+<text x="135" y="90">−2</text>
+<text x="235" y="90">−1</text>
+<text x="435" y="90">1</text>
+<text x="535" y="90">2</text>
+<text x="720" y="90">+∞</text>
+<!-- Знаци с фрагменти -->
+<text class="sign fragment" x="340" y="50">+</text> <!-- между -1 и 1 -->
+<!-- Другите знаци се появяват следващо -->
+<text class="sign fragment" x="190" y="50">−</text> <!-- между -2 и -1 -->
+<text class="sign fragment" x="90" y="50">+</text> <!-- наляво от -2 -->
+<text class="sign fragment" x="500" y="50">−</text> <!-- между 1 и 2 -->
+<text class="sign fragment" x="620" y="50">+</text> <!-- надясно от 2 -->
+</svg>
+</section><section>
+<h3>19. Финален отговор</h3>
+<div class="fragment">Изразът има неотрицателна стойност, когато стойността на x се намира в следните интервали:</div>
+<div class="math-line">
+<span class="fragment">\( x \in (-\infty, -2] \cup (-1, 1) \cup [2, +\infty) \)</span>
+</div>
+<div class="fragment">
+<strong>Обяснение за  точките:</strong>
+<ul>
+<li class="fragment">\( x = -1 \), \( x = 1 \) се <u>изключват</u>, защото нулират знаменателя. Те са отбелязани на числовата ос с <strong>празни кръгчета, защото не можем да делим на нула.</strong>. В интервала това е отбелязано със заоблени скоби.</li>
+<li class="fragment">\( x = -2 \), \( x = 2 \) се <u>включват</u> в отговора, защото неравенството е  ≥ 0 (нестрого). Отбелязани са с <strong>плътни черни кръгчета на числовата ос. В интервала това е отбелязано с квадратни скоби. </strong>.</li>
+</ul>
+</div>
+</section></div>
+</div>
+
+<script>
+let slideCount = 0;
+let targetSlideIndex = 0;
+
+Reveal.initialize({
+  controls: false,
+  progress: true,
+  slideNumber: true,
+  hash: true,
+  plugins: [],
+  center: false,
+  margin: 0,
+  transition: 'none',
+  disableLayout: true
+});
+
+Reveal.on('ready', () => {
+  slideCount = Reveal.getTotalSlides();
+  targetSlideIndex = Reveal.getIndices().h;
+  console.log('[READY] Слайд:', targetSlideIndex);
+});
+
+Reveal.on('slidechanged', event => {
+  console.log('[SLIDE] h:', event.indexh, 'v:', event.indexv);
+});
+
+Reveal.on('fragmentshown', event => {
+  console.log('[FRAGMENT SHOWN]', event.fragment.textContent);
+});
+
+Reveal.on('fragmenthidden', event => {
+  console.log('[FRAGMENT HIDDEN]', event.fragment.textContent);
+});
+
+function hideAllFragments() {
+  const allVisibleFragments = document.querySelectorAll('.fragment.visible');
+  allVisibleFragments.forEach(f => f.classList.remove('visible'));
+  console.log('[FRAGMENTS HIDDEN]');
+}
+
+function goPrevSlide() {
+  const currIndices = Reveal.getIndices();
+  if (currIndices.h > 0) {
+    targetSlideIndex = currIndices.h - 1;
+    Reveal.slide(targetSlideIndex, 0);
+    setTimeout(hideAllFragments, 100);
+    console.log('[НАВИГАЦИЯ ◀] Към слайд', targetSlideIndex);
+  } else {
+    // Вече сме на първия слайд – скриваме фрагментите
+    hideAllFragments();
+    console.log('[НАВИГАЦИЯ ◀] В първи слайд – скриване на фрагменти');
+  }
+}
+
+function goNextSlide() {
+  const currIndex = Reveal.getIndices().h;
+  if (currIndex < slideCount - 1) {
+    targetSlideIndex = currIndex + 1;
+    Reveal.slide(targetSlideIndex, 0);
+    console.log('[НАВИГАЦИЯ ▶] Към слайд', targetSlideIndex);
+  }
+}
+
+function goFirstSlide() {
+  targetSlideIndex = 0;
+  Reveal.slide(0, 0);
+  setTimeout(hideAllFragments, 100);
+  console.log('[НАВИГАЦИЯ ⏺] Към първи слайд (без фрагменти)');
+}
+
+function goLastSlide(){
+
+}
+
+  // За да не кешира страницата!
+
+  const links = document.querySelectorAll("link[rel='stylesheet'], script[src]");
+  links.forEach(el => {
+    const attr = el.tagName === "LINK" ? "href" : "src";
+    el[attr] += (el[attr].includes('?') ? '&' : '?') + 'v=' + Date.now();
+  });
+
+</script>
+
+
+
+
+
+<!-- Централно SVG хранилище с един символ триъгълник -->
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  
+    <!-- Триъгълник -->
+  <symbol id="triangle" viewBox="0 0 100 100">
+    <polygon points="50,20 80,80 20,80" />
+  </symbol>
+  <!-- Кръг  -->
+  <symbol id="circle" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="30" />
+  </symbol>
+  <!-- Стрелка  -->
+  <symbol id="arrow-up" viewBox="0 0 100 100"> 
+    <polyline points="50,80 50,30" stroke="currentColor" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <polygon points="30,50 50,20 70,50" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="arrow-up-2" viewBox="0 0 100 100">
+    <line x1="50" y1="90" x2="50" y2="35" stroke="currentColor" stroke-width="12" stroke-linecap="round"/>
+    <polygon points="30,45 50,15 70,45" fill="currentColor"/>
+  </symbol>
+  <symbol id="arrow-up-3" viewBox="0 0 100 100">
+    <polyline
+      points="30,50 50,20 70,50"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="12"
+      stroke-linejoin="miter" />
+    <line
+      x1="50"
+      y1="20"
+      x2="50"
+      y2="85"
+      stroke="currentColor"
+      stroke-width="12"
+      stroke-linecap="butt" />
+  </symbol>
+
+
+</svg>
+
+
+
+
+
+</body>
+</html>
