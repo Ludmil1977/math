@@ -2,9 +2,6 @@
 
 <html lang="bg">
 <head>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <meta charset="utf-8"/>
 <title>Задача 1 – дробно неравенство</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -32,6 +29,7 @@ svg.icon {
 /* бутони: topic */
 #top-bar .topic svg.icon {
   color: #567292;
+  border: 2px solid red;
 }
 #top-bar a.topic:hover svg.icon {
   color: #7291e7;
@@ -40,6 +38,7 @@ svg.icon {
 /* бутони: section */
 #top-bar .section svg.icon {
   color: #44751b;
+  border: 2px solid red;
 }
 #top-bar a.section:hover svg.icon {
   color: #6bc270;
@@ -48,6 +47,7 @@ svg.icon {
 /* бутони: fragment */
 #top-bar .fragment svg.icon {
   color: #000000;
+  border: 2px solid red;
 }
 #top-bar a.fragment:hover svg.icon {
   color: #686767;
@@ -68,7 +68,7 @@ svg.icon {
 
 #top-bar a {
   text-decoration: none;
-  margin: 0 5px;
+  margin: 0 0px;
   font-weight: bold;
   transition: color 0.2s ease;
 }
@@ -76,7 +76,7 @@ svg.icon {
 /* Разстояние между групите */
 #top-bar .spacer {
   display: inline-block;
-  width: 5px;
+  width: 0px;
 }
 
 
@@ -107,6 +107,7 @@ svg.icon {
 
 .reveal .slides {
     overflow-y: auto !important;
+    overflow-x: auto !important;
     padding-top: 80px !important;
     width: 100% !important;
     box-sizing: border-box;
@@ -140,7 +141,7 @@ html, body, .reveal, .reveal .slides {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  overflow-x: hidden !important;
+  overflow-x: auto !important;
 }
 
 
@@ -267,6 +268,18 @@ html, body, .reveal, .reveal .slides {
 <ul>
 <li class="fragment">\( x = -1 \), \( x = 1 \) се <u>изключват</u>, защото нулират знаменателя. Те са отбелязани на числовата ос с <strong>празни кръгчета, защото не можем да делим на нула.</strong>. В интервала това е отбелязано със заоблени скоби.</li>
 <li class="fragment">\( x = -2 \), \( x = 2 \) се <u>включват</u> в отговора, защото неравенството е  ≥ 0 (нестрого). Отбелязани са с <strong>плътни черни кръгчета на числовата ос. В интервала това е отбелязано с квадратни скоби. </strong>.</li>
+<li class="fragment">1<br><br></li>
+<li class="fragment">2<br><br></li>
+<li class="fragment">3<br><br></li>
+<li class="fragment">4<br><br></li>
+<li class="fragment">5<br><br></li>
+<li class="fragment">6<br><br></li>
+<li class="fragment">7<br><br></li>
+<li class="fragment">8<br><br></li>
+<li class="fragment">9<br><br></li>
+<li class="fragment">10<br><br></li>
+<li class="fragment">11<br><br></li>
+
 </ul>
 </div>
 </section></div>
@@ -275,6 +288,7 @@ html, body, .reveal, .reveal .slides {
 <script>
 let slideCount = 0;
 let targetSlideIndex = 0;
+let fragmentHistory = [];
 
 Reveal.initialize({
   controls: false,
@@ -291,19 +305,35 @@ Reveal.initialize({
 Reveal.on('ready', () => {
   slideCount = Reveal.getTotalSlides();
   targetSlideIndex = Reveal.getIndices().h;
-  console.log('[READY] Слайд:', targetSlideIndex);
+  //console.log('[READY] Слайд:', targetSlideIndex);
 });
 
 Reveal.on('slidechanged', event => {
   console.log('[SLIDE] h:', event.indexh, 'v:', event.indexv);
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
+Reveal.configure({ disableLayout: true }); 
+
 Reveal.on('fragmentshown', event => {
-  console.log('[FRAGMENT SHOWN]', event.fragment.textContent);
+    //console.log("Фрагмент се показа:", event.fragment);
+  //console.log('[FRAGMENT SHOWN]', event.fragment.textContent);
+  const fragment = event.fragment;
+  fragmentHistory.push(fragment);
+  scrollElementTopToCenter(fragment);
+  
 });
 
 Reveal.on('fragmenthidden', event => {
-  console.log('[FRAGMENT HIDDEN]', event.fragment.textContent);
+  //console.log('[FRAGMENT HIDDEN]', event.fragment.textContent);
+  // Премахни последния фрагмент от историята (този, който току-що е скрит)
+  fragmentHistory.pop();
+
+  // Вземи предишния, ако има такъв
+  const previousFragment = fragmentHistory[fragmentHistory.length - 1];
+  if (previousFragment) {
+    scrollElementTopToCenter(previousFragment);
+  }
 });
 
 function hideAllFragments() {
@@ -345,11 +375,24 @@ function goFirstSlide() {
 function goLastSlide(){
 
 }
-      const links = document.querySelectorAll("link[rel='stylesheet'], script[src]");
-  links.forEach(el => {
-    const attr = el.tagName === "LINK" ? "href" : "src";
-    el[attr] += (el[attr].includes('?') ? '&' : '?') + 'v=' + Date.now();
+
+function scrollElementTopToCenter(elem) {
+  const slidesContainer = document.querySelector(".reveal .slides");
+  const topBar = document.getElementById("top-bar");
+  const topBarHeight = topBar ? topBar.offsetHeight : 0;
+
+  const rect = elem.getBoundingClientRect();
+  const scrollY = slidesContainer.scrollTop;
+
+  const visibleHeight = window.innerHeight - topBarHeight;
+  const targetY = rect.top + scrollY - (visibleHeight / 2) + topBarHeight;
+
+  slidesContainer.scrollTo({
+    top: targetY,
+    behavior: "smooth"
   });
+}
+
 
 </script>
 
