@@ -122,7 +122,8 @@ li.selected {
   // Автоматично активиране на fullscreen ако е standalone
   window.addEventListener('load', () => {
     if (isInStandaloneMode()) {
-      enterFullscreen();
+      const btn = document.getElementById("fullscreenBtn");
+      enterFullscreen(btn);
     }
   });
 
