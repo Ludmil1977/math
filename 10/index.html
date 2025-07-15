@@ -127,16 +127,29 @@ li.selected {
   });
 
   // Ръчно активиране
-  function enterFullscreen() {
-    const docEl = document.documentElement;
-    if (docEl.requestFullscreen) {
-      docEl.requestFullscreen();
-    } else if (docEl.webkitRequestFullscreen) {
-      docEl.webkitRequestFullscreen();
-    } else if (docEl.msRequestFullscreen) {
-      docEl.msRequestFullscreen();
-    }
+function enterFullscreen() {
+  const docEl = document.documentElement;
+
+  let requestFullscreen = 
+    docEl.requestFullscreen ||
+    docEl.webkitRequestFullscreen ||
+    docEl.msRequestFullscreen;
+
+  if (requestFullscreen) {
+    requestFullscreen.call(docEl).then(() => {
+      // Опит за заключване на ориентацията в landscape
+      if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('landscape').catch(err => {
+          console.warn('Неуспешно заключване на ориентацията:', err);
+        });
+      }
+    }).catch(err => {
+      console.error('Грешка при преминаване във фулскрийн:', err);
+    });
   }
+}
+
+
 
   // Покажи бутон за добавяне към начален екран, ако не е standalone
   window.addEventListener('beforeinstallprompt', (e) => {
