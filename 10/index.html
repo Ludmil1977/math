@@ -1,1 +1,182 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <title> MAT10клас</title>
+
+  <!-- Забрана на кеширане -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <!-- За мобилна съвместимост -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#007BFF">
+
+
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 30px;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+
+
+    ul {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 0;
+      list-style-type: none;
+    }
+
+
+
+
+  li {
+  background: white;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  color: #007BFF; /* син текст като линк */
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  text-decoration: underline; /* прилича на линк */
+}
+
+/* Когато мишката е над елемента */
+li:hover {
+  background-color: #e8f0fe;
+  color: #8e0038; 
+}
+
+/* Когато е натиснат */
+li:active {
+  background-color: #cce0ff;
+  color: #f5b70e;            /* вишнево-червеникав текст */
+}
+
+/* За избран елемент (ако се добавя клас selected) */
+li.selected {
+  background-color: #007BFF;
+  color: white;
+  text-decoration: none;
+}
+
+
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      cursor: pointer;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      text-align: center;
+      display: block;      /* или inline-block */
+      margin: 0 auto;      /* центрира по хоризонтала */
+    }
+
+
+  </style>
+</head>
+<body>
+  <h1>Подготовка за входно ниво и НВО в 10-ти клас</h1>
+<button onclick="enterFullscreen()" >⬛ Включи Fullscreen</button>
+  
+  <ul>
+    <li onclick="loadPage('1.html')">1. Рационални и ирационални изрази</li>
+    <li onclick="loadPage('2.html')">2. Уравнения и неравенства</li>
+    <li onclick="loadPage('3.html')">3. Дробни неравенства</li>
+    <li onclick="loadPage('4.html')">4. Функции и координатни системи</li>
+    <li onclick="loadPage('5.html')">5. Комбинаторика, вероятности и статистика</li>
+    <li onclick="loadPage('6.html')">6. Моделиране с уравнения и системи</li>
+    <li onclick="loadPage('7.html')">7. Геометрични задачи</li>
+    <li onclick="loadPage('8.html')">8. Задачи за път, скорост и време</li>
+    <li onclick="loadPage('9.html')">9. Числови редици. Аритметични и геометрични прогресии</li>
+    <li onclick="loadPage('10.html')">10.Задачи за цени, сложна и проста лихва</li>
+    <li onclick="loadPage('11.html')">11. Задачи за работа и производителност</li>
+    <li onclick="loadPage('12.html')">12. Задачи за пропорции и съотношения</li>
+    <li onclick="loadPage('13.html')">13. Задачи за рецепти, смеси и сплави</li>
+    <li onclick="loadPage('14.html')">14. Задачи, давани на НВО в 10-ти клас</li>
+  </ul>
+    
+<script>
+  let deferredPrompt;
+
+  function isInStandaloneMode() {
+    return window.matchMedia('(display-mode: standalone)').matches ||
+           window.navigator.standalone === true;
+  }
+
+  // Автоматично активиране на fullscreen ако е standalone
+  window.addEventListener('load', () => {
+    if (isInStandaloneMode()) {
+      enterFullscreen();
+    }
+  });
+
+  // Ръчно активиране
+  function enterFullscreen() {
+    const docEl = document.documentElement;
+    if (docEl.requestFullscreen) {
+      docEl.requestFullscreen();
+    } else if (docEl.webkitRequestFullscreen) {
+      docEl.webkitRequestFullscreen();
+    } else if (docEl.msRequestFullscreen) {
+      docEl.msRequestFullscreen();
+    }
+  }
+
+  // Покажи бутон за добавяне към начален екран, ако не е standalone
+  window.addEventListener('beforeinstallprompt', (e) => {
+    if (isInStandaloneMode()) return;
+
+    e.preventDefault();
+    deferredPrompt = e;
+
+    const btn = document.createElement('button');
+    btn.textContent = '📲 Добави към начален екран';
+    btn.style = 'position:fixed;bottom:20px;left:20px;padding:10px;background:orange;color:white;font-size:18px;z-index:1000;';
+    document.body.appendChild(btn);
+
+    btn.addEventListener('click', () => {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('Потребителят добави приложението.');
+        } else {
+          console.log('Потребителят отказа.');
+        }
+        deferredPrompt = null;
+        btn.remove();
+      });
+    });
+  });
+
+      function loadPage(filename) {
+      fetch(filename)
+        .then(res => res.ok ? res.text() : Promise.reject('Грешка при зареждане.'))
+        .then(html => {
+          document.getElementById('content').innerHTML = html;
+        })
+        .catch(err => {
+          document.getElementById('content').innerHTML = '<p style="color:red;">' + err + '</p>';
+        });
+    }
+</script>
+
+  
+</body>
+</html>
 
