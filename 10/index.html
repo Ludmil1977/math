@@ -121,11 +121,22 @@ li.selected {
 
   // Автоматично активиране на fullscreen ако е standalone
   window.addEventListener('load', () => {
-    if (isInStandaloneMode()) {
-      const btn = document.getElementById("fullscreenBtn");
+    const btn = document.getElementById("fullscreenBtn");
+    if (isInStandaloneMode()) {  
       enterFullscreen(btn);
     }
+    else if(isInFullscreenMode()){
+      btn.style.display = "none";
+    }
+
   });
+
+  function isInFullscreenMode() {
+  return !!(document.fullscreenElement ||
+            document.webkitFullscreenElement ||
+            document.mozFullScreenElement ||
+            document.msFullscreenElement);
+}
 
   // Ръчно активиране
 function enterFullscreen(btn) {
