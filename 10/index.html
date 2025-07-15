@@ -92,7 +92,7 @@ li.selected {
 </head>
 <body>
   <h1>Подготовка за входно ниво и НВО в 10-ти клас</h1>
-<button onclick="enterFullscreen()" >⬛ Превключи на цял екран </button>
+<button id = "fullscreenBtn" onclick="enterFullscreen(this)" >⬛ Превключи на цял екран </button>
   
   <ul>
     <li onclick="loadPage('1.html')">1. Рационални и ирационални изрази</li>
@@ -127,7 +127,7 @@ li.selected {
   });
 
   // Ръчно активиране
-function enterFullscreen() {
+function enterFullscreen(btn) {
   const docEl = document.documentElement;
 
   let requestFullscreen = 
@@ -137,6 +137,10 @@ function enterFullscreen() {
 
   if (requestFullscreen) {
     requestFullscreen.call(docEl).then(() => {
+
+      btn.style.display = "none";
+
+      
       // Опит за заключване на ориентацията в landscape
       if (screen.orientation && screen.orientation.lock) {
         screen.orientation.lock('landscape').catch(err => {
@@ -187,6 +191,24 @@ function enterFullscreen() {
           document.getElementById('content').innerHTML = '<p style="color:red;">' + err + '</p>';
         });
     }
+document.addEventListener("fullscreenchange", () => {
+  if (!document.fullscreenElement) {
+    // Вече не сме във фулскрийн — показваме бутона обратно
+    const btn = document.getElementById("fullscreenBtn");
+    btn.style.display = ""; 
+  }
+});
+
+// Още един слушател за Safari браузър:
+document.addEventListener("webkitfullscreenchange", () => {
+  if (!document.webkitFullscreenElement) {
+    document.getElementById("fullscreenBtn").style.display = "";
+  }
+});
+
+
+
+  
 </script>
 
   
